@@ -15,3 +15,25 @@ def test_high_score():
 def test_non_square_alt():
     # (50 × 40) ÷ (200 × √30) = 2000 ÷ 1095.4 = 1.83
     assert round(calculate_fib4(50, 40, 30, 200), 2) == 1.83
+
+import pytest
+
+def test_platelets_zero_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 40, 25, 0)
+
+def test_alt_too_high_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 40, 10001, 200)
+
+def test_platelets_too_high_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 40, 25, 200000)
+
+def test_age_too_young_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(17, 40, 25, 200)
+
+def test_text_input_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, "abc", 25, 200)
