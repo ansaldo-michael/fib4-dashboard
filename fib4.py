@@ -19,3 +19,25 @@ def calculate_fib4(age, ast, alt, platelets):
         raise ValueError("platelets must be at most 1000 x10^9/L")
 
     return (age * ast) / (platelets * math.sqrt(alt))
+
+
+def classify_fib4(score, age):
+    low_cutoff = 2.0 if age >= 65 else 1.3
+    if score < low_cutoff:
+        return "Low"
+    if score > 2.67:
+        return "High"
+    return "Indeterminate"
+
+
+def get_warnings(age, ast, alt):
+    warnings = []
+    if age < 35:
+        warnings.append("Age under 35: FIB-4 is less reliable in this age group.")
+    if age >= 65:
+        warnings.append("Age 65 or older: FIB-4 is less reliable; higher cutoffs are used.")
+    if ast > 300:
+        warnings.append("AST above 300 U/L: may indicate acute liver injury, where FIB-4 is unreliable.")
+    if alt > 300:
+        warnings.append("ALT above 300 U/L: may indicate acute liver injury, where FIB-4 is unreliable.")
+    return warnings

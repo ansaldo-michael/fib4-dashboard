@@ -37,3 +37,39 @@ def test_age_too_young_rejected():
 def test_text_input_rejected():
     with pytest.raises(ValueError):
         calculate_fib4(50, "abc", 25, 200)
+
+from fib4 import classify_fib4, get_warnings
+
+def test_low_below_cutoff_under_65():
+    assert classify_fib4(1.2, 50) == "Low"
+
+def test_exactly_1_3_is_indeterminate_under_65():
+    assert classify_fib4(1.3, 50) == "Indeterminate"
+
+def test_1_3_is_low_over_65():
+    assert classify_fib4(1.3, 70) == "Low"
+
+def test_exactly_2_0_is_indeterminate_over_65():
+    assert classify_fib4(2.0, 70) == "Indeterminate"
+
+def test_high_cutoff():
+    assert classify_fib4(2.67, 50) == "Indeterminate"
+    assert classify_fib4(2.68, 50) == "High"
+
+def test_age_65_uses_older_table():
+    assert classify_fib4(1.8, 65) == "Low"
+    assert classify_fib4(1.8, 64) == "Indeterminate"
+
+def test_no_warnings_normal_case():
+    assert get_warnings(50, 40, 25) == []
+
+def test_age_warnings():
+    assert len(get_warnings(34, 40, 25)) == 1
+    assert get_warnings(35, 40, 25) == []
+    assert get_warnings(64, 40, 25) == []
+    assert len(get_warnings(65, 40, 25)) == 1
+
+def test_enzyme_warnings():
+    assert get_warnings(50, 300, 25) == []
+    assert len(get_warnings(50, 301, 25)) == 1
+    assert len(get_warnings(50, 40, 301)) == 1
