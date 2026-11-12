@@ -41,3 +41,10 @@ def get_warnings(age, ast, alt):
     if alt > 300:
         warnings.append("ALT above 300 U/L: may indicate acute liver injury, where FIB-4 is unreliable.")
     return warnings
+
+
+def assess_fib4(age, ast, alt, platelets):
+    score = calculate_fib4(age, ast, alt, platelets)
+    category = classify_fib4(score, age)
+    warnings = get_warnings(age, ast, alt)
+    return {"score": score, "category": category, "warnings": warnings}

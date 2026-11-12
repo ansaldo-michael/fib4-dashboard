@@ -73,3 +73,10 @@ def test_enzyme_warnings():
     assert get_warnings(50, 300, 25) == []
     assert len(get_warnings(50, 301, 25)) == 1
     assert len(get_warnings(50, 40, 301)) == 1
+
+from fib4 import assess_fib4
+
+def test_assess_normal_patient():
+    result = assess_fib4(50, 40, 25, 200)
+    assert result["category"] == "Indeterminate"
+    assert result["warnings"] == []
