@@ -64,3 +64,10 @@ Design implications (planned, not yet built):
 - Keep the calculation logic separate from the interface so a web page or an EHR connection can call the same functions.
 - Real EHR data is messier than typed-in data (missing labs, old results, different units), so validation and warnings matter more. Possible future warnings: no value on file, or lab result is old.
 - EHR data would come through the FHIR standard, with labs identified by LOINC codes. Development and testing use synthetic patients only, never real patient data.
+
+## Decision 6: Classify the exact score, display 3 decimals
+Risk category is determined from the exact (unrounded) FIB-4 score, so the criteria are applied as published: Low is strictly below the lower cutoff (1.3, or 2.0 at age 65+), High is strictly above 2.67.
+
+Why: the published criteria are defined on the score itself, and none of the guidance reviewed specifies rounding before classification. Rounding first would change the patient's score before applying the criteria.
+
+Display: the interface will show the score to 3 decimals so the number and the label never appear to disagree (for example, 2.674 shows as High, not "2.67 = High").
