@@ -71,3 +71,11 @@ Risk category is determined from the exact (unrounded) FIB-4 score, so the crite
 Why: the published criteria are defined on the score itself, and none of the guidance reviewed specifies rounding before classification. Rounding first would change the patient's score before applying the criteria.
 
 Display: the interface will show the score to 3 decimals so the number and the label never appear to disagree (for example, 2.674 shows as High, not "2.67 = High").
+
+## Decision 7: Logic review outcomes
+Reviewed the core logic before building the interface. Changes made:
+- Single entry point: assess_fib4 validates, calculates, classifies, and collects warnings, so the interface only calls one function.
+- Booleans (True/False) are rejected as inputs, since Python treats them as numbers.
+- Minimum of 1 for AST, ALT, and platelets (U/L and x10^9/L). This is a judgment call, not a guideline value. It blocks implausible values like an ALT of 0.0001 and catches platelet unit mix-ups (for example 0.2 reported in x10^12/L). Real severe thrombocytopenia is still accepted.
+
+Considered and deferred: a "very low platelets" warning (a possible threshold is below 50 x10^9/L, where bleeding risk rises per StatPearls; low platelets also inflate FIB-4). Revisit later.
