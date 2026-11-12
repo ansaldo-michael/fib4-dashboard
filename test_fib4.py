@@ -84,3 +84,18 @@ def test_assess_normal_patient():
 def test_boolean_input_rejected():
     with pytest.raises(ValueError):
         calculate_fib4(50, True, 25, 200)
+
+def test_ast_below_one_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 0.5, 25, 200)
+
+def test_alt_below_one_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 40, 0.5, 200)
+
+def test_platelets_below_one_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, 40, 25, 0.5)
+
+def test_value_of_exactly_one_accepted():
+    assert calculate_fib4(50, 1, 1, 1) == 50

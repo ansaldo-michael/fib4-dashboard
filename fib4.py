@@ -11,12 +11,12 @@ def calculate_fib4(age, ast, alt, platelets):
 
     if not 18 <= age <= 120:
         raise ValueError("age must be between 18 and 120")
-    if ast > 10000:
-        raise ValueError("AST must be at most 10,000 U/L")
-    if alt > 10000:
-        raise ValueError("ALT must be at most 10,000 U/L")
-    if platelets > 1000:
-        raise ValueError("platelets must be at most 1000 x10^9/L")
+    if not 1 <= ast <= 10000:
+        raise ValueError("AST must be between 1 and 10,000 U/L")
+    if not 1 <= alt <= 10000:
+        raise ValueError("ALT must be between 1 and 10,000 U/L")
+    if not 1 <= platelets <= 1000:
+        raise ValueError("platelets must be between 1 and 1000 x10^9/L")
 
     return (age * ast) / (platelets * math.sqrt(alt))
 
