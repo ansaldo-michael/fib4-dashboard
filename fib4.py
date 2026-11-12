@@ -4,7 +4,7 @@ def calculate_fib4(age, ast, alt, platelets):
     values = {"age": age, "AST": ast, "ALT": alt, "platelets": platelets}
 
     for name, value in values.items():
-        if not isinstance(value, (int, float)) or not math.isfinite(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
             raise ValueError(f"{name} must be a real number")
         if value <= 0:
             raise ValueError(f"{name} must be greater than 0")

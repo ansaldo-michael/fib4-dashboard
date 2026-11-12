@@ -80,3 +80,7 @@ def test_assess_normal_patient():
     result = assess_fib4(50, 40, 25, 200)
     assert result["category"] == "Indeterminate"
     assert result["warnings"] == []
+
+def test_boolean_input_rejected():
+    with pytest.raises(ValueError):
+        calculate_fib4(50, True, 25, 200)
