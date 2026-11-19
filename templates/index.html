@@ -14,5 +14,22 @@
     <label>Platelets (x10^9/L): <input type="number" name="platelets" step="any"></label><br><br>
     <button type="submit">Calculate</button>
   </form>
+
+  {% if error %}
+    <p><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+
+  {% if result %}
+    <h2>Result</h2>
+    <p>FIB-4 score: {{ "%.3f"|format(result.score) }}</p>
+    <p>Risk category: {{ result.category }}</p>
+    {% if result.warnings %}
+      <ul>
+        {% for warning in result.warnings %}
+          <li>{{ warning }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endif %}
 </body>
 </html>
