@@ -79,3 +79,14 @@ Reviewed the core logic before building the interface. Changes made:
 - Minimum of 1 for AST, ALT, and platelets (U/L and x10^9/L). This is a judgment call, not a guideline value. It blocks implausible values like an ALT of 0.0001 and catches platelet unit mix-ups (for example 0.2 reported in x10^12/L). Real severe thrombocytopenia is still accepted.
 
 Considered and deferred: a "very low platelets" warning (a possible threshold is below 50 x10^9/L, where bleeding risk rises per StatPearls; low platelets also inflate FIB-4). Revisit later.
+
+## Decision 8: Web interface
+Built with Flask. One page with a four-box form (age, AST, ALT, platelets) that submits to the same page and shows the result below it.
+
+- The page calls only assess_fib4, the single entry point, so all validation and classification logic stays in fib4.py and the interface contains no clinical logic.
+- The disclaimer is shown at the top of the page itself, not only in the README.
+- The score is displayed to 3 decimals (see Decision 6).
+- Category and any warnings are shown with the score.
+- Two kinds of input problems get two kinds of messages: a blank or non-numeric box shows "Please enter a number in every box"; a number outside the hard limits shows the validation message naming the input.
+- No database: the app does not store submitted values.
+- Tests cover the home page, a valid submission, an out-of-range value, and a blank box.
